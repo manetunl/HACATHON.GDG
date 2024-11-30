@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Website</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+  </head>
+  <body>
+    
+    <header>
+      <nav class="navbar">
+        <h2 class="logo"><a href="#">learn Able</a></h2>
+        <input type="checkbox" id="menu-toggler">
+        <label for="menu-toggler" id="hamburger-btn">
+         
+        </label>
+        <ul class="all-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#services">informations</a></li>
+          <li><a href="#about">About Us </a></li>
+          
+
+        </ul>
+      </nav>
+    
+    </header>
+    
+
+    <section class="homepage" id="home">
+      <div class="content">
+        <div class="text">
+          <h1>Where "Silence" Meets Opportunity</h1>
+             </div>
+        
+      </div>
+    </section>
+    </li><section class="services" id="services">
+
+      <h2>General informations</h2>
+      <div>Teachable Machine Image Model</div>
+<button type="button" onclick="init()">Start</button>
+<div id="webcam-container"></div>
+<div id="label-container"></div>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+<script type="text/javascript">
+    // More API functions here:
+    // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
+
+    // the link to your model provided by Teachable Machine export panel
+    const URL = "./my_model/";
+
+    let model, webcam, labelContainer, maxPredictions;
+
+    // Load the image model and setup the webcam
+    async function init() {
+        const modelURL = URL + "model.json";
+        const metadataURL = URL + "metadata.json";
+
+        // load the model and metadata
+        // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
+        // or files from your local hard drive
+        // Note: the pose library adds "tmImage" object to your window (window.tmImage)
+        model = await tmImage.load(modelURL, metadataURL);
+        maxPredictions = model.getTotalClasses();
+
+        // Convenience function to setup a webcam
+        const flip = true; // whether to flip the webcam
+        webcam = new tmImage.Webcam(200, 200, flip); // width, height, flip
+        await webcam.setup(); // request access to the webcam
+        await webcam.play();
+        window.requestAnimationFrame(loop);
+
+        // append elements to the DOM
+        document.getElementById("webcam-container").appendChild(webcam.canvas);
+        labelContainer = document.getElementById("label-container");
+        for (let i = 0; i < maxPredictions; i++) { // and class labels
+            labelContainer.appendChild(document.createElement("div"));
+        }
+    }
+
+    async function loop() {
+        webcam.update(); // update the webcam frame
+        await predict();
+        window.requestAnimationFrame(loop);
+    }
+
+    // run the webcam image through the image model
+    async function predict() {
+        // predict can take in an image, video or canvas html element
+        const prediction = await model.predict(webcam.canvas);
+        for (let i = 0; i < maxPredictions; i++) {
+            const classPrediction =
+                prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+            labelContainer.childNodes[i].innerHTML = classPrediction;
+        }
+    }
+</script>
+
+      <ul class="cards">
+        <li class="card">
+          <img src="kk (4).jpg" alt="img">
+          <h3>"Hearing Impairment and Education"</h3><br>
+          <p>Global Numbers: 466–500 million people worldwide experience hearing impairments, many of whom are profoundly deaf.<BR>
+            In Egypt: Around 2.5 million individuals have hearing impairments, with higher prevalence in rural areas due to genetics and infections.<BR>
+            Education in Egypt: About 40% of deaf students complete basic education, while access to higher education is limited.
+            
+            
+            
+            
+            
+            
+            </p>
+        </li>
+        <li class="card">
+          <img src="pp.jpg" alt="img">
+          <h3>"Challenges for Deaf"</h3>
+          <p>Communication:<br>
+
+            Communication: Limited awareness of sign language and shortage of professional interpreters, causing social and formal isolation.
+Education: Lack of specialized schools, tailored curricula, and properly trained teachers.
+Employment: Discrimination and insufficient job opportunities accommodating their needs.
+Healthcare: Difficulty communicating with providers and lack of accessible tools for understanding.
+Social Integration: Stereotypes and lack of inclusive community activities, leading to isolation.
+Technology: High costs and limited access to assistive devices like hearing aids and translation apps.
+
+
+
+
+
+ </p>
+        </li>
+        <li class="card">
+          <img src="kk (5).jpg" alt="img">
+          <h3>"Deaf Community Activities" </h3>
+          <p>Communication: Primarily through sign language.<br>
+            Social Engagement: Participating in family and community events using sign language.<br>
+            Sports: Enjoy physical activities like swimming, basketball, and running.<br>
+            Arts: Engage in painting, sculpture, or music through vibrations.<br>
+            Technology: Use of apps, smartphones, and tablets to aid communication.<br>
+            Entertainment: Watching subtitled or interpreted movies and shows.<br>
+            Community: Active in deaf organizations for advocacy and support.<br>
+            Reading: Accessing books with inclusive content.<br>
+            Assistive Devices: Use of hearing aids, light signals, and other communication tools.
+            
+            
+            
+            
+            
+                <li class="card">
+          <img src="kk (6).jpg" alt="img">
+          <h3>"Key Aspects of Life for Deaf and Mute Individuals"</h3>
+        <p>
+
+Sign Language: Essential for communication and connection.
+Social Activities: Engaging in gatherings and events using sign language.<br>
+Sports: Staying active through activities like swimming and basketball.<br>
+Arts: Expressing creativity through painting or enjoying music vibrations.<br>
+Technology: Utilizing apps, smartphones, and video calls for communication.<br>
+Visual Content: Watching subtitled or interpreted movies and shows.<br>
+Deaf Organizations: Joining groups for advocacy and community support.<br>
+Reading: Accessing information and entertainment through books.<br>
+Assistive Devices: Using tools like hearing aids to enhance interaction.<br>
+
+
+
+
+
+</p> 
+        </li>
+        <li class="card">
+          <img src="kk (3).webp" alt="img">
+          <h3>"Effective Methods for Teaching Sign Language to Deaf Adults" </h3>
+          <p>Teaching sign language to adults who are deaf or mute requires a specialized and interactive approach:<br>
+
+            Start with Basics: Teach the alphabet and essential daily signs.<br>
+Visual Tools: Use pictures, videos, and illustrations for demonstration.<br>
+Interactive Learning: Incorporate games and real-life practice exercises.<br>
+Small Groups: Promote interaction and hands-on practice.<br>
+Qualified Instructors: Skilled teachers who understand learners' needs.<br>
+Social Focus: Emphasize everyday social communication.<br>
+Technology: Leverage apps and online resources for interactive lessons.<br>
+Patience and Consistency: Ensure regular practice and allow time for learning.
+            </p>
+        </li>
+        <li class="card">
+          <img src="kk (5).jpg" alt="img">
+          <h3>Teaching Sign Language to Deaf Children: Effective Methods</h3>
+          <p></p>Start with Simple Signs: Teach basic, everyday signs like greetings and common objects.<br>
+
+            Use Visual Aids: Utilize flashcards, pictures, and videos to support learning.<br>
+            
+            Interactive Activities: Include games, songs, and storytelling with sign language.<br>
+            
+            Repetition: Regular practice helps reinforce learning.<br>
+            
+            Play-Based Learning: Use toys and playtime to teach signs in context.<br>
+            
+            Peer Interaction: Group learning encourages socialization and real-life practice.<br>
+            
+            Qualified Teachers: Teachers should be trained in sign language and child development.<br>
+            
+            Family Involvement: Parents should practice signs at home.<br>
+            
+            Technology: Use apps and videos for engaging learning.<br>
+            
+            These methods help deaf children learn sign language effectively and communicate confidently.</p>
+        </li>
+        <video controls loop muted autoplay width="500px" height="500px">
+          <source src="mb.mp4">
+        </video>
+        <video controls loop muted autoplay width="500px " height="500px">
+          <source src="mg.mp4">
+        </video>
+    <section class="about" id="about">
+      <h2>About Us</h2>
+     <section>
+      <p>About Us,Our Vision,Our Value, My team.</p>
+      <div class="row company-info">
+        <h3>About Us</h3>
+        <p>Welcome to LearnAble, the ultimate platform dedicated to empowering the deaf community with essential skills for the modern world. We specialize in providing accessible and interactive courses in digital marketing, programming, graphic design, and more.<BR>
+
+          At LearnAble, our mission is to bridge communication gaps and foster inclusion by equipping our users with in-demand skills. We not only aim to enhance personal growth but also create meaningful job opportunities, enabling our users to thrive in today’s competitive economy.<BR>
+          
+          Join us in building a future where everyone, regardless of hearing ability, can learn, connect, and succeed!</p>
+      </div>
+  
+      <div class="row mission-vision">
+      
+        <h3>Our Vision</h3>
+        <p>At LearnAble, our vision is to empower the deaf community by increasing the employment rate from 53% to 70%. We aim to enhance communication between the deaf and the world, creating a more inclusive society where deaf individuals have equal opportunities to succeed and thrive. Through skill-building and accessible learning, we strive to open doors to new careers and foster stronger connections, bridging the gap for a brighter, more connected future.
+        <h3>Our Value</h3>
+        <p>
+          Breaking Barriers : 
+          
+          Explore how improved communication tools can enhance healthcare access for deaf individuals, featuring healthcare professionals and accessibility advocates.<br>
+          
+      
+          Reimagining Education for Deaf Learners : 
+          
+          Discuss innovative approaches to education, including digital tools and inclusive teaching strategies, with educators and ed-tech specialists.<br>
+          
+         
+          Building a Skilled Workforce: Vocational Training for the Deaf: 
+          
+          Highlight programs and platforms that empower deaf individuals to learn in-demand skills, creating pathways to employment.<br>
+          
+          Fostering Connection: Community Initiatives for the Deaf: 
+          
+          Showcase successful projects that integrate deaf individuals into community service activities, fostering inclusivity and collaboration.<br>
+                Inclusive Hiring: The Economic Benefits of Employing Deaf Workers: 
+          
+          Discuss how hiring deaf individuals can enhance workplace diversity and productivity, with HR specialists and industry leaders.<br>
+          
+      
+          Explore how advancements in communication and skill-building technologies can create job opportunities for the deaf.
+          
+          
+          
+    
+         </p>
+        
+       
+      </div>
+      <div class="row team">
+        <h3>My Team</h3>
+        <ul>
+          <li>Malek  - He's on his way to becoming a historical person using programming</li>
+    
+          
+        </ul>
+      </div>
+    </section>
+    
+
+    <footer>
+  <div>
+    <span>&copy; 2024 LearnAble. All rights reserved. Designed with ❤️ by LearnAble Team.</span>
+  </div>
+</footer>
